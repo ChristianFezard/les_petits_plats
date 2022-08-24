@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link href="style.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" 
+    integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" 
+    crossorigin="anonymous">
+    <title>Les petits plats</title>
+</head>
+<body>
+    <header id="head_title">
+        <img src="logo.svg" class="logo" alt="Les petits plats">
+    </header>
+    <main>
+        <section id="search_section">
+            <div class="search_container">
+                <input class="search_bar" id="main_search" type="search" placeholder="Rechercher une recette"/>
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="tag_field"></div>
+            <div class="drop_section">
+                <details id="dropdown_ingredient" class="ingredient">
+                    <summary>
+                        Ingrédients
+                        <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z" fill="white"/>
+                        </svg> 
+                    </summary>
+                    <input type="text" class="filters_tags_area_input ingredient_color" id="search_ingredient" name="search_ingredient" minlength="3" maxlength="20" size="10" placeholder="Rechercher un ingredient">
+                    <ul class="ingredient_color list" id="ingredient_list">
+                    </ul>
+                </details>
+                <details id="dropdown_appliance" class="appliance">
+                    <summary>
+                        Appareils
+                        <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z" fill="white"/>
+                        </svg> 
+                    </summary>
+                    <input type="text" class="filters_tags_area_input appliance_color" id="search_appliance" name="search_appliance" minlength="3" maxlength="20" size="10" placeholder="Rechercher un appareil">
+                    <ul class="appliance_color list" id="appliance_list">
+                    </ul>
+                </details>
+                <details id="dropdown_ustensil" class="ustensil">
+                    <summary>
+                        Ustensiles
+                        <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.12 0.453369L8 6.56004L1.88 0.453369L0 2.33337L8 10.3334L16 2.33337L14.12 0.453369Z" fill="white"/>
+                        </svg> 
+                    </summary>
+                    <input type="text" class="filters_tags_area_input ustensil_color" id="search_ustensil" name="search_ustensil" minlength="3" maxlength="20" size="10" placeholder="Rechercher un ustensile">
+                    <ul class="ustensil_color list" id="ustensil_list">
+                    </ul>
+                </details>
+            </div>
+        </section>
+        <section id="recipes_gallery"></section>
+    </main>
+
+    <script type="module" src="scripts/script.js"></script>
+
+</body>
+</html>
