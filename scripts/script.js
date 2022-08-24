@@ -14,16 +14,6 @@ console.log(recipesArray);
 let tagPicked = new Array();
 const searchResult = document.querySelector("#recipes_gallery");
 
-/* fonction DOMbuild */
-
-/*const domBuild = (elt, attributes) => {
-    const element = document.createElement(elt);
-    for (let key in attributes) {
-        element.setAttribute(key, attributes[key])
-    }
-    return element;
-}*/
-
 /* integration des dropdowns a la page */
 
 fillDropdown(recipes);
@@ -81,7 +71,7 @@ function closeTag() {
     icons.forEach((icon) => {
         icon.addEventListener("click", () => {
             let tag = icon.parentElement;
-            icon.remove();
+            tag.remove();
             deleteTagFiltering();
         });
     });
