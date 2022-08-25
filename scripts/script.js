@@ -49,15 +49,19 @@ searchInput.addEventListener("input", ()=>{
 /* filtrage via les tags */
 
 function addTag(array) {
-    const items = document.querySelectorAll(".drop_section li");
+    
     const tagField = document.querySelector(".tag_field");
+    const items = document.querySelectorAll(".drop_section li");
 
     items.forEach((item) => {
         item.addEventListener("click", () => {
+            item.classList.add("hidden");
+        if (!tagPicked.includes(item.textContent)) {
             new dropdowntags(tagField, item.textContent, item.parentNode);
             displayRecipes(filterTags(array, item.textContent));
             tagPicked.push(item.textContent);
-            item.classList.add("hidden");
+        }
+        closeTag();
         });
     });
 }
@@ -76,8 +80,6 @@ function closeTag() {
         });
     });
 }
-
-closeTag();
 
 /* reset des recettes après suppresion des tags */
 
