@@ -27,12 +27,13 @@ window.addEventListener("load", () => {
 
 /* ecoute de l'input et mise en place de l'algorithme de recherche */
 
-const searchInput = document.querySelector("#main_search");
+const searchInput = document.querySelector("input[placeholder='Rechercher une recette']");
 
 searchInput.addEventListener("input", ()=>{
     if (searchInput.value.length === 0){
         searchResult.innerHTML = "";
         displayRecipes(recipes);
+        fillDropdown(recipes);
     }
     if(searchInput.value.length >= 3){
         searchFunctionnalProgramming(searchInput.value).then((response)=>{
@@ -40,6 +41,7 @@ searchInput.addEventListener("input", ()=>{
                return searchResult.innerHTML = '<p class="error">Aucune recette ne contient correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
             }
             displayRecipes(response);
+            fillDropdown(response);
         });
     }
 });
@@ -101,3 +103,6 @@ function deleteTagFiltering(){
         displayRecipes(recipes);
     }
 }
+
+/* ecoute et gestion des champs de recherche des dropdowns */
+

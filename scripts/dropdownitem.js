@@ -3,7 +3,6 @@
 export function fillDropdown(recipes) {
     let ingredientList = [];
     let applianceList = [];
-    let ustensilList = [];
 
     const dropdownIngredient = document.getElementById("ingredient_list");
     const dropdownAppliance = document.getElementById("appliance_list");
@@ -17,6 +16,7 @@ export function fillDropdown(recipes) {
         });
     });
     ingredientList = [...new Set(ingredientList)];
+    ingredientList.sort();
 
     /* edition du tableau en élément intégré a la liste a puces*/
 
@@ -34,6 +34,7 @@ export function fillDropdown(recipes) {
         applianceList.push(recipe.appliance);
     });
     applianceList = [...new Set(applianceList)];
+    applianceList.sort();
 
     dropdownAppliance.innerHTML = "";
     applianceList.forEach((item) => {
@@ -49,6 +50,7 @@ export function fillDropdown(recipes) {
        return recipe.ustensils 
     });
     ustensils = [...new Set(ustensils.flat())];
+    ustensils.sort();
 
     dropdownUstensil.innerHTML = "";
     ustensils.forEach((item) => {
