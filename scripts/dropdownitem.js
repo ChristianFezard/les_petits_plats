@@ -23,10 +23,11 @@ export function fillDropdown(recipes) {
     dropdownIngredient.innerHTML = "";
     ingredientList.forEach((item) => {
         let list = document.createElement("li");
+        list.setAttribute("class", "ingredient_element");
         list.innerText = item;
 
         dropdownIngredient.appendChild(list);
-    })
+    });
 
 /* Tableau appareils */
 
@@ -39,6 +40,7 @@ export function fillDropdown(recipes) {
     dropdownAppliance.innerHTML = "";
     applianceList.forEach((item) => {
         let list = document.createElement("li");
+        list.setAttribute("class", "appliance_element");
         list.innerText = item;
 
         dropdownAppliance.appendChild(list);
@@ -55,6 +57,7 @@ export function fillDropdown(recipes) {
     dropdownUstensil.innerHTML = "";
     ustensils.forEach((item) => {
         let list = document.createElement("li");
+        list.setAttribute("class", "ustensil_element");
         list.innerText = item;
 
         dropdownUstensil.appendChild(list);
