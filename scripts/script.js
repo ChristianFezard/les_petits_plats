@@ -1,11 +1,11 @@
 import { recipes } from './data-recipes.js'
-import { searchFunctionnalProgramming } from './searchFunctionalProgramming.js'
 import { displayRecipes } from './cardrecipes.js'
 import { fillDropdown } from './dropdownitem.js'
 import { filterTags } from './filterTags.js'
 import dropdowntags from './dropdowntags.js'
-import {fillDropdownAfterSearch} from "./fillDropdownAfterSearch.js";
-import { nativeSearch } from "./searchNativeProgramming";
+import { fillDropdownAfterSearch } from "./fillDropdownAfterSearch.js";
+/*import { searchFunctionnalProgramming } from './searchFunctionalProgramming.js'*/
+import { imperativeSearchProgramming } from "./searchNativeProgramming.js";
 
 /* constantes et variables générales */
 
@@ -37,8 +37,8 @@ searchInput.addEventListener("input", ()=>{
         searchResult.innerHTML = '<p class="error">Veuillez saisir au moins 3 caractères.</p>';
     }
     if(searchInput.value.length >= 3){
-        searchFunctionnalProgramming(searchInput.value).then((response)=>{
-            if(response === "Pas de recettes trouvees"){
+        imperativeSearchProgramming(searchInput.value).then((response)=>{
+            if(response === "Pas de recettes trouvées"){
                return searchResult.innerHTML = '<p class="error">Aucune recette ne contient correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
             }
             displayRecipes(response);
@@ -141,10 +141,10 @@ function filterDropdown(searchedElement, recipes, filteringType) {
     }
     if (filteringType === "ustensils") {
         result = recipes.map((recipe) => {
-            return recipe.ustensils.toLowerCase();
+            return recipe.ustensils
         });
         result = result.flat();
-        result = [...new Set()];
+        result = [...new Set(result)];
         result = result.filter((ustensils) => {
             return ustensils.includes(searchedElement) === true;
         });

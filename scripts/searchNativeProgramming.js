@@ -1,27 +1,122 @@
-import { recipes } from "./data-recipes";
-import { normalizeString } from "./normalizeString";
+import { normalizeString } from "./normalizeString.js";
 
-function nativeSearch(userInput){
+import { recipes } from './data-recipes.js'
 
-    const userInput = normalizeString(userInput)
-    const searchResult = document.querySelector("#recipes_gallery");
-    const result = [];
+export function imperativeSearchProgramming(userInput){
 
-    /* i représente les recettes */
+    return new Promise((resolve, reject)=> {
+         
+        userInput = normalizeString(userInput);
 
-    for (let i = 0; i < recipes.length; i++) {
-        if (recipes[i].name.toLowerCase().includes(userInput)) {
-            result.push(recipes[i]);
-        } else if (recipes[i].description.toLowerCase().includes(userInput)) {
-            result.push(recipes[i]);
-        } else if (recipes[i].ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(userInput))) {
-            result.push(recipes[i]);
+        function resultRecipesName(){
+
+            const recipesName = [];
+
+            return new Promise((resolve, reject)=>{
+
+                const j = recipes.length;
+
+                for(let i=0; i<j; i++){
+
+                    if(recipes[i].name.toLowerCase().includes(userInput) === true) {
+                        // La méthode push() ajoute un ou plusieurs éléments à la fin d'un tableau et retourne la nouvelle taille du tableau.
+
+                        recipesName.push(recipes[i]);
+
+                    }
+
+                }
+    
+                return resolve(recipesName);
+                
+            });
         }
-    }
+        
+        function resultRecipesIngredients(){
 
-    /* affichage du message d'erreur */
+            return new Promise((resolve, reject)=>{
 
-    if(result.length === 0){
-        return searchResult.innerHTML = '<p class="error">Aucune recette ne contient correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
-    }
+                const resultIngredients = [];
+
+                const j = recipes.length;
+
+                for(let i=0; i<j; i++){
+
+
+                    let isOnIngredients = false;
+
+                    const l = recipes[i].ingredients.length;
+
+                    for(let k=0; k<l; k++){
+
+                          if(recipes[i].ingredients[k].ingredient.toLowerCase().includes(userInput) === true){
+
+                              isOnIngredients = true;
+
+                          }
+
+                    }
+
+                    if(isOnIngredients === true){
+                                
+                         resultIngredients.push(recipes[i]);
+        
+                    }
+
+                  
+
+                }
+
+                return resolve(resultIngredients);
+
+            });
+            
+        }
+
+        function resultRecipesDescription(){
+
+            return new Promise((resolve, reject)=>{
+
+                const recipesDescription = [];
+
+                const j = recipes.length;
+
+                for(let i=0; i<j; i++){
+
+                    if(recipes[i].description.toLocaleLowerCase().includes(userInput) === true){
+
+                            recipesDescription.push(recipes[i]);
+
+                    }
+                }
+
+                return resolve(recipesDescription);
+            
+            });
+        }
+
+        Promise.all([resultRecipesName(), resultRecipesIngredients(),resultRecipesDescription()]).then((result)=>{
+            //  operateur spread permet en ajoutant ... devant un tableau ou une itération de récupérer ts les éléments d'un tableau
+            // ci-dessous concaténation des ts les éléments des tableaux result dont l'index est 0 1 et 2.
+
+                result = [...result[0], ...result[1], ...result[2]];
+    
+                if(result.length === 0){
+    
+                        return resolve('Pas de recettes trouvées');
+    
+                }
+
+                const jsonObject = result.map(JSON.stringify);
+        
+                const uniqueSet = new Set(jsonObject);
+
+                result = Array.from(uniqueSet).map(JSON.parse);
+        
+                return resolve(result);
+            
+        });
+    
+    
+    });
 }
