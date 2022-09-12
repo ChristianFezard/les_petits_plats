@@ -102,7 +102,7 @@ export function searchFunctionnalProgramming(userInput){
    
                if(result.length === 0){
    
-                    return resolve("Pas de recettes trouvees");
+                    return resolve("Pas de recettes trouvées");
    
                }
 
