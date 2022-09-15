@@ -50,7 +50,7 @@ body{
     font-size: 30px;
 }
 
-/*FILTER BUTTON*/
+/*DROPDOWN*/
 
 .drop_section{
     display: flex;
@@ -97,11 +97,11 @@ body{
 }
 
 .drop_section details[open]{
-    width: 560px;
+    width: 500px;
 }
 
 .drop_section details[open] > summary{
-    width: 560px;
+    width: 500px;
 }
 
 .drop_section details[open] > summary svg{
@@ -113,10 +113,10 @@ body{
 .filters_tags_area_input{
     border-radius: 5px 5px 0 0;
     left: 0;
-    width: 560px;
+    width: 500px;
     z-index: 1;
     position: absolute;
-    top: 0;
+    top: 10px;
     padding: 15px;
     outline: none;
     color: white;
@@ -264,4 +264,15 @@ body{
     font-weight: 600;
     color: red;
     margin: auto;
+}
+
+/*MEDIA QUERY*/
+
+@media (min-width : 768px) and (max-width : 1200px) {
+    #recipes_gallery{
+        margin-right: -50px;
+    }
+    .recipe_card{
+        width: calc((100% / 2) - (100px / 2));
+    }
 }
