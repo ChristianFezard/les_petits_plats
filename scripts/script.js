@@ -57,6 +57,7 @@ function addTag(array) {
 
     items.forEach((item) => {
         item.addEventListener("click", () => {
+            alert('test');
         if (!tagPicked.includes(item.textContent)) {
             new dropdowntags(tagField, item.textContent, item.parentNode);
             displayRecipes(filterTags(array, item.textContent));
@@ -140,10 +141,10 @@ function filterDropdown(searchedElement, recipes, filteringType) {
     }
     if (filteringType === "ustensils") {
         result = recipes.map((recipe) => {
-            return recipe.ustensils.toLowerCase();
+            return recipe.ustensils
         });
         result = result.flat();
-        result = [...new Set()];
+        result = [...new Set(result)];
         result = result.filter((ustensils) => {
             return ustensils.includes(searchedElement) === true;
         });
