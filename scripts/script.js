@@ -31,6 +31,7 @@ searchInput.addEventListener("input", ()=>{
         searchResult.innerHTML = "";
         displayRecipes(recipes);
         fillDropdown(recipes);
+        addTag(recipes);
     }
     if(searchInput.value.length == 1 || searchInput.value.length == 2){
         searchResult.innerHTML = '<p class="error">Veuillez saisir au moins 3 caractères.</p>';
@@ -58,7 +59,6 @@ function addTag(array) {
 
     items.forEach((item) => {
         item.addEventListener("click", () => {
-            alert('test');
         if (!tagPicked.includes(item.textContent)) {
             new dropdowntags(tagField, item.textContent, item.parentNode);
             displayRecipes(filterTags(array, item.textContent));
