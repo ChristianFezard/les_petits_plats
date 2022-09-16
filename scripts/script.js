@@ -42,6 +42,7 @@ searchInput.addEventListener("input", ()=>{
             }
             displayRecipes(response);
             fillDropdown(response);
+            addTag(response);
         });
     }
 });
