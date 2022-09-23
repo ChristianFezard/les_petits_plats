@@ -275,4 +275,10 @@ body{
     .recipe_card{
         width: calc((100% / 2) - (100px / 2));
     }
+    .drop_section{
+        flex-direction: column;
+    }
+    .drop_section ul{
+        position: unset;
+    }
 }

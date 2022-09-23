@@ -51,8 +51,11 @@ export function fillDropdown(recipes) {
     let ustensils = recipes.map((recipe) => {
        return recipe.ustensils 
     });
-    ustensils = [...new Set(ustensils.flat())];
-    ustensils.sort();
+    ustensils = ustensils.flat();
+    ustensils = [...new Set(ustensils)];
+    ustensils.sort((a, b) => {
+        return a.localeCompare(b);
+    });
 
     dropdownUstensil.innerHTML = "";
     ustensils.forEach((item) => {
