@@ -102,21 +102,14 @@ export function imperativeSearchProgramming(userInput){
                 result = [...result[0], ...result[1], ...result[2]];
     
                 if(result.length === 0){
-    
                         return resolve('Pas de recettes trouvées');
-    
                 }
 
                 const jsonObject = result.map(JSON.stringify);
-        
                 const uniqueSet = new Set(jsonObject);
-
                 result = Array.from(uniqueSet).map(JSON.parse);
-        
                 return resolve(result);
             
-        });
-    
-    
+        }); 
     });
 }

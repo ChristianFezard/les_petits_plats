@@ -58,7 +58,7 @@ export function fillDropdown(recipes) {
     ustensils.forEach((item) => {
         let list = document.createElement("li");
         list.setAttribute("class", "ustensil_element");
-        list.innerText = item;
+        list.innerText = item.slice(0, 1).toUpperCase() + item.slice(1);     
 
         dropdownUstensil.appendChild(list);
     })

@@ -32,6 +32,7 @@ searchInput.addEventListener("input", ()=>{
         searchResult.innerHTML = "";
         displayRecipes(recipes);
         fillDropdown(recipes);
+        addTag(recipes);
     }
     if(searchInput.value.length == 1 || searchInput.value.length == 2){
         searchResult.innerHTML = '<p class="error">Veuillez saisir au moins 3 caractères.</p>';
@@ -148,9 +149,13 @@ function filterDropdown(searchedElement, recipes, filteringType) {
         result = [...new Set(result)];
         result = result.filter((ustensils) => {
             return ustensils.includes(searchedElement) === true;
+        }).map((ustensils) => {
+            return ustensils.slice(0, 1).toUpperCase() + ustensils.slice(1);
+        }).sort((a, b) => {
+            return a.localeCompare(b);
         });
         return result;
-    }    
+    }   
 }
 
 inputIngredient.addEventListener("input", function() {
