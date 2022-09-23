@@ -24,7 +24,7 @@ export function fillDropdown(recipes) {
     ingredientList.forEach((item) => {
         let list = document.createElement("li");
         list.setAttribute("class", "ingredient_element");
-        list.innerText = item;
+        list.innerText = item.slice(0, 1).toUpperCase() + item.slice(1);
 
         dropdownIngredient.appendChild(list);
     });
@@ -41,7 +41,7 @@ export function fillDropdown(recipes) {
     applianceList.forEach((item) => {
         let list = document.createElement("li");
         list.setAttribute("class", "appliance_element");
-        list.innerText = item;
+        list.innerText = item.slice(0, 1).toUpperCase() + item.slice(1);
 
         dropdownAppliance.appendChild(list);
     })
@@ -51,14 +51,17 @@ export function fillDropdown(recipes) {
     let ustensils = recipes.map((recipe) => {
        return recipe.ustensils 
     });
-    ustensils = [...new Set(ustensils.flat())];
-    ustensils.sort();
+    ustensils = ustensils.flat();
+    ustensils = [...new Set(ustensils)];
+    ustensils.sort((a, b) => {
+        return a.localeCompare(b);
+    });
 
     dropdownUstensil.innerHTML = "";
     ustensils.forEach((item) => {
         let list = document.createElement("li");
         list.setAttribute("class", "ustensil_element");
-        list.innerText = item;
+        list.innerText = item.slice(0, 1).toUpperCase() + item.slice(1);
 
         dropdownUstensil.appendChild(list);
     })

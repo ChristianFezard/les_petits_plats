@@ -105,7 +105,7 @@ function deleteTagFiltering(){
     }
 }
 
-/* ecoute et gestion des champs de recherche des dropdowns */
+/* écoute et gestion des champs de recherche des dropdowns */
 
 const inputIngredient = document.querySelector("input[placeholder='Rechercher un ingredient']");
 const inputAppliance = document.querySelector("input[placeholder='Rechercher un appareil']");
@@ -127,6 +127,10 @@ function filterDropdown(searchedElement, recipes, filteringType) {
         result = [...new Set(result)];
         result = result.filter((element)=>{
             return element.includes(searchedElement) === true;
+        }).map((element) => {
+            return element.slice(0, 1).toUpperCase() + element.slice(1);
+        }).sort((a, b) => {
+            return a.localeCompare(b);
         });
         return result;
     }
@@ -136,10 +140,16 @@ function filterDropdown(searchedElement, recipes, filteringType) {
             return recipe.appliance.toLowerCase();      
         }).filter((appliance)=>{
             return appliance.includes(searchedElement) === true;
-        })
+        });
         result = [...new Set(result)];
+        result = result.map((appliance) => {
+            return appliance.slice(0, 1).toUpperCase() + appliance.slice(1);
+        }).sort((a, b) => {
+            a.localeCompare(b);
+        })
         return result;
     }
+
     if (filteringType === "ustensils") {
         result = recipes.map((recipe) => {
             return recipe.ustensils
@@ -148,6 +158,10 @@ function filterDropdown(searchedElement, recipes, filteringType) {
         result = [...new Set(result)];
         result = result.filter((ustensils) => {
             return ustensils.includes(searchedElement) === true;
+        }).map((ustensils) => {
+            return ustensils.slice(0, 1).toUpperCase() + ustensils.slice(1);
+        }).sort((a, b) => {
+            return a.localeCompare(b);
         });
         return result;
     }    
@@ -157,17 +171,26 @@ inputIngredient.addEventListener("input", function() {
     const inputValue = this.value;
   
     this.nextElementSibling.innerHTML = fillDropdownAfterSearch(filterDropdown(inputValue, recipes, "ingredient"));
+    if(this.value.length === 0){
+        addTag(recipes);
+    }
 });
 
 inputAppliance.addEventListener("input", function() {
     const inputValue = this.value;
 
     this.nextElementSibling.innerHTML = fillDropdownAfterSearch(filterDropdown(inputValue, recipes, "appliance"));
+    if(this.value.length === 0){
+        addTag(recipes);
+    }
 });
 
 inputUstensil.addEventListener("input", function() {
     const inputValue = this.value;
     this.nextElementSibling.innerHTML = fillDropdownAfterSearch(filterDropdown(inputValue, recipes, "ustensils"));
+    if(this.value.length === 0){
+        addTag(recipes);
+    }
 });
 
 
