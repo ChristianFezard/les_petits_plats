@@ -10,16 +10,15 @@ import { imperativeSearchProgramming } from "./searchNativeProgramming.js";
 /* constantes et variables générales */
 
 let tagPicked = [];
+let recipesFiltered = [...recipes];
 const searchResult = document.querySelector("#recipes_gallery");
 
-/* integration des dropdowns a la page */
-
-fillDropdown(recipes);
-
 /* integration des cartes de recettes */
+/* integration des dropdowns a la page */
 
 window.addEventListener("load", () => {
     displayRecipes(recipes);
+    fillDropdown(recipes);
     addTag(recipes);
 })
 
@@ -28,19 +27,22 @@ window.addEventListener("load", () => {
 const searchInput = document.querySelector("input[placeholder='Rechercher une recette']");
 
 searchInput.addEventListener("input", ()=>{
-    if (searchInput.value.length === 0){
+    if (searchInput.value.length === 0 && tagPicked.length === 0){
         searchResult.innerHTML = "";
         displayRecipes(recipes);
         fillDropdown(recipes);
         addTag(recipes);
     }
-    if(searchInput.value.length == 1 || searchInput.value.length == 2){
+    if (searchInput.value.length < 3 && tagPicked.length != 0){
+        displayRecipes(filterTags(recipes, tagPicked[0]));
+    }
+    if(searchInput.value.length === 1 || searchInput.value.length === 2 && tagPicked.length === 0){
         searchResult.innerHTML = '<p class="error">Veuillez saisir au moins 3 caractères.</p>';
     }
-    if(searchInput.value.length >= 3){
+    if(searchInput.value.length >= 3 && tagPicked.length === 0){
         imperativeSearchProgramming(searchInput.value).then((response)=>{
             if(response === "Pas de recettes trouvées"){
-               return searchResult.innerHTML = '<p class="error">Aucune recette ne contient correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
+               return searchResult.innerHTML = '<p class="error">Aucune recette ne correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
             }
             displayRecipes(response);
             fillDropdown(response);
@@ -53,6 +55,10 @@ searchInput.addEventListener("input", ()=>{
 /* fonction d'ajout des options dans les dropdowns*/
 /* filtrage via les tags */
 
+const updateRecipes = (updatedRecipes) => {
+    recipesFiltered = updatedRecipes;
+};
+
 function addTag(array) {
     
     const tagField = document.querySelector(".tag_field");
@@ -62,7 +68,10 @@ function addTag(array) {
         item.addEventListener("click", () => {
         if (!tagPicked.includes(item.textContent)) {
             new dropdowntags(tagField, item.textContent, item.parentNode);
-            displayRecipes(filterTags(array, item.textContent));
+            updateRecipes(filterTags(array, item.textContent));
+            displayRecipes(recipesFiltered);
+            fillDropdown(recipesFiltered);
+            addTag(recipesFiltered);
             tagPicked.push(item.textContent);
         }
         closeTag();
@@ -81,6 +90,8 @@ function closeTag() {
             let tag = icon.parentElement;
             tag.remove();
             deleteTagFiltering();
+            fillDropdown(recipes);
+            addTag(recipes);
         });
     });
 }
@@ -103,8 +114,10 @@ function deleteTagFiltering(){
     if (tagPicked.length === 0) {
         searchResult.innerHTML = "";
         displayRecipes(recipes);
+        addTag(recipes);
     }
 }
+
 
 /* ecoute et gestion des champs de recherche des dropdowns */
 

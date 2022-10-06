@@ -13,14 +13,14 @@ export const filterTags = (array, string) => {
             arrayFiltered.push(element);
         }
     });
-    return arrayFiltered
+    return arrayFiltered;
 }
 
 function arrayUstensil(array, string) {
     let resp = null;
     array.forEach((element) => {
        if (element.toLowerCase().includes(string.toLowerCase())) {
-        resp = true
+        resp = true;
        }
     });
     return resp;
@@ -30,7 +30,7 @@ function arrayIngredient(array, string) {
     let resp = null;
     array.forEach((element) => {
        if (element.ingredient.toLowerCase().includes(string.toLowerCase())) {
-        resp = true
+        resp = true;
        }
     });
     return resp;
