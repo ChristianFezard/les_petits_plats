@@ -9,6 +9,7 @@ import {fillDropdownAfterSearch} from "./fillDropdownAfterSearch.js";
 /* constantes et variables générales */
 
 let tagPicked = [];
+let recipesFiltered = [...recipes];
 const searchResult = document.querySelector("#recipes_gallery");
 
 /* integration des dropdowns a la page */
@@ -52,6 +53,10 @@ searchInput.addEventListener("input", ()=>{
 /* fonction d'ajout des options dans les dropdowns*/
 /* filtrage via les tags */
 
+const updateRecipes = (updatedRecipes) => {
+    recipesFiltered = updatedRecipes;
+};
+
 function addTag(array) {
     
     const tagField = document.querySelector(".tag_field");
@@ -61,7 +66,10 @@ function addTag(array) {
         item.addEventListener("click", () => {
         if (!tagPicked.includes(item.textContent)) {
             new dropdowntags(tagField, item.textContent, item.parentNode);
-            displayRecipes(filterTags(array, item.textContent));
+            updateRecipes(filterTags(array, item.textContent));
+            displayRecipes(recipesFiltered);
+            fillDropdown(recipesFiltered);
+            addTag(recipesFiltered);
             tagPicked.push(item.textContent);
         }
         closeTag();
@@ -80,6 +88,7 @@ function closeTag() {
             let tag = icon.parentElement;
             tag.remove();
             deleteTagFiltering();
+            fillDropdown(recipes);
         });
     });
 }
