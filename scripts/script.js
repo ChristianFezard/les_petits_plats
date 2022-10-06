@@ -184,25 +184,20 @@ function filterDropdown(searchedElement, recipes, filteringType) {
 inputIngredient.addEventListener("input", function() {
     const inputValue = this.value;
     this.nextElementSibling.innerHTML = fillDropdownAfterSearch(filterDropdown(inputValue, recipes, "ingredient"));
-    if(this.value.length === 0){
-        addTag(recipes);
-    }
+    addTag(recipes);
+
 });
 
 inputAppliance.addEventListener("input", function() {
     const inputValue = this.value;
     this.nextElementSibling.innerHTML = fillDropdownAfterSearch(filterDropdown(inputValue, recipes, "appliance"));
-    if(this.value.length === 0){
-        addTag(recipes);
-    }
+    addTag(recipes);
 });
 
 inputUstensil.addEventListener("input", function() {
     const inputValue = this.value;
     this.nextElementSibling.innerHTML = fillDropdownAfterSearch(filterDropdown(inputValue, recipes, "ustensils"));
-    if(this.value.length === 0){
-        addTag(recipes);
-    }
+    addTag(recipes);
 });
 
 
