@@ -81,14 +81,25 @@ function addTag(array) {
 
 function closeTag() {
     const icons = document.querySelectorAll(".tag_close");
-    console.log(icons);
+
 
     icons.forEach((icon) => {
         icon.addEventListener("click", () => {
             let tag = icon.parentElement;
             tag.remove();
             deleteTagFiltering();
-            fillDropdown(recipes);
+            fillDropdown(recipesFiltered);
+            tagPicked.pop(tag);
+            if (tagPicked.length === 0) {
+                searchFunctionnalProgramming(searchInput.value).then((response)=>{
+                    if(response === "Pas de recettes trouvées"){
+                       return searchResult.innerHTML = '<p class="error">Aucune recette ne contient correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
+                    }
+                    displayRecipes(response);
+                    fillDropdown(response);
+                    addTag(response);
+                });
+            }
         });
     });
 }
