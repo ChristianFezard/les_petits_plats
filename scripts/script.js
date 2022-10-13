@@ -90,8 +90,19 @@ function closeTag() {
             let tag = icon.parentElement;
             tag.remove();
             deleteTagFiltering();
-            fillDropdown(recipes);
-            addTag(recipes);
+            fillDropdown(recipesFiltered);
+            addTag();
+            tagPicked.pop(tag);
+            if(tagPicked.length === 0){
+                imperativeSearchProgramming(searchInput.value).then((response)=>{
+                    if(response === "Pas de recettes trouvées"){
+                       return searchResult.innerHTML = '<p class="error">Aucune recette ne correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
+                    }
+                    displayRecipes(response);
+                    fillDropdown(response);
+                    addTag(response);
+                });
+            }
         });
     });
 }
