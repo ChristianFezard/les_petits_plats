@@ -82,14 +82,15 @@ function addTag(array) {
 function closeTag() {
     const icons = document.querySelectorAll(".tag_close");
 
-
     icons.forEach((icon) => {
         icon.addEventListener("click", () => {
             let tag = icon.parentElement;
+            const text = icon.previousSibling;
+        
             tag.remove();
             deleteTagFiltering();
             fillDropdown(recipesFiltered);
-            tagPicked.pop(tag);
+            tagPicked.pop(text.textContent);
             if (tagPicked.length === 0) {
                 searchFunctionnalProgramming(searchInput.value).then((response)=>{
                     if(response === "Pas de recettes trouvées"){
