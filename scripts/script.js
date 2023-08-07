@@ -1,5 +1,6 @@
 import { recipes } from './data-recipes.js'
 import { searchFunctionnalProgramming } from './searchFunctionalProgramming.js'
+import { normalizeString } from './normalizeString.js'
 import { displayRecipes } from './cardrecipes.js'
 import { fillDropdown } from './dropdownitem.js'
 import { filterTags } from './filterTags.js'
@@ -28,17 +29,23 @@ window.addEventListener("load", () => {
 const searchInput = document.querySelector("input[placeholder='Rechercher une recette']");
 
 searchInput.addEventListener("input", ()=>{
-    if (searchInput.value.length === 0){
+
+    const userInput = searchInput.value
+
+    if (userInput.length === 0){
         searchResult.innerHTML = "";
         displayRecipes(recipes);
         fillDropdown(recipes);
         addTag(recipes);
     }
-    if(searchInput.value.length == 1 || searchInput.value.length == 2){
+    if(userInput.length == 1 || userInput.length == 2){
         searchResult.innerHTML = '<p class="error">Veuillez saisir au moins 3 caractères.</p>';
     }
-    if(searchInput.value.length >= 3){
-        searchFunctionnalProgramming(searchInput.value).then((response)=>{
+    if(userInput.length >= 3){
+
+        const normalizedInput = normalizeString(userInput)
+
+        searchFunctionnalProgramming(normalizedInput).then((response)=>{
             if(response === "Pas de recettes trouvées"){
                return searchResult.innerHTML = '<p class="error">Aucune recette ne contient correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
             }
@@ -86,15 +93,14 @@ function closeTag() {
         icon.addEventListener("click", () => {
             let tag = icon.parentElement;
             const text = icon.previousSibling;
-        
+
             tag.remove();
             deleteTagFiltering();
-            fillDropdown(recipesFiltered);
-            tagPicked.pop(text.textContent);
+
             if (tagPicked.length === 0) {
-                searchFunctionnalProgramming(searchInput.value).then((response)=>{
-                    if(response === "Pas de recettes trouvées"){
-                       return searchResult.innerHTML = '<p class="error">Aucune recette ne contient correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
+                searchFunctionnalProgramming(searchInput.value).then((response) => {
+                    if (response === "Pas de recettes trouvées") {
+                        return searchResult.innerHTML = '<p class="error">Aucune recette ne correspond à votre recherche. Essayez par exemple "poulet", "salade de riz", etc.</p>';
                     }
                     displayRecipes(response);
                     fillDropdown(response);
@@ -105,9 +111,10 @@ function closeTag() {
     });
 }
 
+
 /* reset des recettes après suppresion des tags */
 
-function deleteTagFiltering(){
+function deleteTagFiltering() {
     const tags = document.querySelectorAll(".tag");
     let tagArray = [];
 
@@ -116,13 +123,17 @@ function deleteTagFiltering(){
     }
     tagPicked = tagArray;
 
-    for (let i = 0; i< tagPicked.length; i++) {
-        displayRecipes(filterTags(recipes, tagPicked[i]));
-    }
-
     if (tagPicked.length === 0) {
         searchResult.innerHTML = "";
         displayRecipes(recipes);
+    } else {
+        recipesFiltered = filterTags(recipes, tagPicked.join(' ')); // Utilisez tagPicked pour filtrer
+        if (recipesFiltered.length === 0) {
+            searchResult.innerHTML = '<p class="error">Aucune recette ne correspond à vos tags sélectionnés.</p>';
+        } else {
+            displayRecipes(recipesFiltered);
+            fillDropdown(recipesFiltered);
+        }
     }
 }
 

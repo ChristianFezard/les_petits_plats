@@ -1,16 +1,17 @@
-import { normalizeString } from "./normalizeString.js";
 import { recipes } from './data-recipes.js';
+import { normalizeString } from './normalizeString.js';
+
 
 export function searchFunctionnalProgramming(userInput){
 
     return new Promise((resolve, reject)=>{
 
-       userInput = normalizeString(userInput);
+       const normalizedInput = normalizeString(userInput)
 
        function resultRecipesName(){
               return new Promise((resolve, reject)=>{
                    const resultRecipesName = recipes.filter((recipe)=>{
-                       if(recipe.name.toLowerCase().includes(userInput) === true){
+                       if(normalizeString(recipe.name).toLowerCase().includes(userInput) === true){
                            return recipes;
                        }
                    });
@@ -26,7 +27,7 @@ export function searchFunctionnalProgramming(userInput){
                const resultRecipesIngredients = recipes.filter((recipe)=>{
                    let isOnIngredients = false;
                    recipe.ingredients.forEach((recipeIngredient)=>{
-                       if(recipeIngredient.ingredient.toLowerCase().includes(userInput) === true){
+                       if(normalizeString(recipeIngredient.ingredient).toLowerCase().includes(userInput) === true){
                               isOnIngredients = true;
                        }
                    });
@@ -43,7 +44,7 @@ export function searchFunctionnalProgramming(userInput){
              return new Promise((resolve, reject)=>{
 
                    const resultRecipesDescription = recipes.filter((recipe)=>{
-                       if(recipe.description.toLocaleLowerCase().includes(userInput) === true){
+                       if(normalizeString(recipe.description).toLocaleLowerCase().includes(userInput) === true){
                            return recipes;
                        }
                    });

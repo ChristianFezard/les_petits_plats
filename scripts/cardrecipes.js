@@ -21,10 +21,8 @@ export function displayRecipes(data) {
                         <span class="recipe_ingredients">
 
                             ${recipe.ingredients.map((ingredient)=>{
-
                                 let quantity = ingredient.quantity ?? ingredient.quantite;
                                 let unit = ingredient.unit ?? ingredient.unite;
-
                                 if(unit === undefined){
                                     unit = "";
                                 }
@@ -32,12 +30,10 @@ export function displayRecipes(data) {
                                     quantity = "";
                                 }
                                 return `
-                                
                                 <div>${ingredient.ingredient} : ${quantity} ${unit}</div>
 
                                 `;
                             }).join("")}
-                    
                         </span>                        
                         <span class="recipe_steps">${recipe.description}</span>
                     </div>    

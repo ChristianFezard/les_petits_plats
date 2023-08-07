@@ -8,3 +8,10 @@ export function normalizeString(string){
     return string;
 
 }
+
+// export function verifString(string)
+// {
+//     var string = "ëx vœúx erât adî-piscîng sãdic_scïng";
+//     var monRegEx = /^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._-\s]{5,60}$/;
+//     if(verifDescrip.exec(descrip) == null){ alert("saisie invalide"); }
+// }
