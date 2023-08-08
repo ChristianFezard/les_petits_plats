@@ -5,7 +5,7 @@ export function imperativeSearchProgramming(userInput){
 
     return new Promise((resolve, reject)=> {
          
-        userInput = normalizeString(userInput);
+        const userInput = normalizeString(userInput);
 
         function resultRecipesName(){
 

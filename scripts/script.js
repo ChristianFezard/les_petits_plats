@@ -44,9 +44,9 @@ searchInput.addEventListener("input", ()=>{
     }
     if(userInput.length >= 3 && tagPicked.length === 0){
 
-        const normalizedInput = normalizeString(userInput)
+        // const normalizedInput = normalizeString(userInput)
 
-        imperativeSearchProgramming(normalizedInput).then((response)=>{
+        imperativeSearchProgramming(userInput).then((response)=>{
             if(response === "Pas de recettes trouvées"){
                return searchResult.innerHTML = '<p class="error">Aucune recette ne correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
             }
