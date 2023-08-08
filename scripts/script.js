@@ -27,20 +27,23 @@ window.addEventListener("load", () => {
 const searchInput = document.querySelector("input[placeholder='Rechercher une recette']");
 
 searchInput.addEventListener("input", ()=>{
-    if (searchInput.value.length === 0 && tagPicked.length === 0){
+
+    const userInput = searchInput.value
+
+    if (userInput.length === 0 && tagPicked.length === 0){
         searchResult.innerHTML = "";
         displayRecipes(recipes);
         fillDropdown(recipes);
         addTag(recipes);
     }
-    if (searchInput.value.length < 3 && tagPicked.length != 0){
+    if (userInput.length < 3 && tagPicked.length != 0){
         displayRecipes(filterTags(recipes, tagPicked[0]));
     }
-    if(searchInput.value.length === 1 || searchInput.value.length === 2 && tagPicked.length === 0){
+    if(userInput.length === 1 || userInput.length === 2 && tagPicked.length === 0){
         searchResult.innerHTML = '<p class="error">Veuillez saisir au moins 3 caractères.</p>';
     }
-    if(searchInput.value.length >= 3 && tagPicked.length === 0){
-        imperativeSearchProgramming(searchInput.value).then((response)=>{
+    if(userInput.length >= 3 && tagPicked.length === 0){
+        imperativeSearchProgramming(userInput.value).then((response)=>{
             if(response === "Pas de recettes trouvées"){
                return searchResult.innerHTML = '<p class="error">Aucune recette ne correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
             }
