@@ -4,8 +4,8 @@ import { fillDropdown } from './dropdownitem.js'
 import { filterTags } from './filterTags.js'
 import dropdowntags from './dropdowntags.js'
 import { fillDropdownAfterSearch } from "./fillDropdownAfterSearch.js";
-/*import { searchFunctionnalProgramming } from './searchFunctionalProgramming.js'*/
 import { imperativeSearchProgramming } from "./searchNativeProgramming.js";
+import { normalizeString } from './normalizeString.js'
 
 /* constantes et variables générales */
 
@@ -43,7 +43,10 @@ searchInput.addEventListener("input", ()=>{
         searchResult.innerHTML = '<p class="error">Veuillez saisir au moins 3 caractères.</p>';
     }
     if(userInput.length >= 3 && tagPicked.length === 0){
-        imperativeSearchProgramming(userInput.value).then((response)=>{
+
+        const normalizedInput = normalizeString(userInput)
+
+        imperativeSearchProgramming(normalizedInput).then((response)=>{
             if(response === "Pas de recettes trouvées"){
                return searchResult.innerHTML = '<p class="error">Aucune recette ne correspond a votre recherche. Essayer par exemple "poulet", "salade de riz" etc.</p>';
             }
