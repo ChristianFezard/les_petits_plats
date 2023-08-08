@@ -109,7 +109,7 @@ function closeTag() {
 
 /* reset des recettes après suppresion des tags */
 
-function deleteTagFiltering(){
+function deleteTagFiltering() {
     const tags = document.querySelectorAll(".tag");
     let tagArray = [];
 
@@ -118,14 +118,17 @@ function deleteTagFiltering(){
     }
     tagPicked = tagArray;
 
-    for (let i = 0; i< tagPicked.length; i++) {
-        displayRecipes(filterTags(recipes, tagPicked[i]));
-    }
-
     if (tagPicked.length === 0) {
         searchResult.innerHTML = "";
         displayRecipes(recipes);
-        addTag(recipes);
+    } else {
+        recipesFiltered = filterTags(recipes, tagPicked.join(' ')); // Utilisez tagPicked pour filtrer
+        if (recipesFiltered.length === 0) {
+            searchResult.innerHTML = '<p class="error">Aucune recette ne correspond à vos tags sélectionnés.</p>';
+        } else {
+            displayRecipes(recipesFiltered);
+            fillDropdown(recipesFiltered);
+        }
     }
 }
 
