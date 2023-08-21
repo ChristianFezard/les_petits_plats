@@ -14,11 +14,13 @@ let recipesFiltered = [...recipes];
 const searchResult = document.querySelector("#recipes_gallery");
 
 /* integration des cartes de recettes */
+
+fillDropdown(recipes);
+
 /* integration des dropdowns a la page */
 
 window.addEventListener("load", () => {
     displayRecipes(recipes);
-    fillDropdown(recipes);
     addTag(recipes);
 })
 
@@ -96,9 +98,7 @@ function closeTag() {
             let tag = icon.parentElement;
             tag.remove();
             deleteTagFiltering();
-            fillDropdown(recipesFiltered);
-            addTag();
-            tagPicked.pop(tag);
+
             if(tagPicked.length === 0){
                 imperativeSearchProgramming(searchInput.value).then((response)=>{
                     if(response === "Pas de recettes trouvées"){

@@ -5,7 +5,7 @@ export function imperativeSearchProgramming(userInput){
 
     return new Promise((resolve, reject)=> {
          
-        const userInput = normalizeString(userInput);
+        const normalizedInput = normalizeString(userInput);
 
         function resultRecipesName(){
 
@@ -15,7 +15,7 @@ export function imperativeSearchProgramming(userInput){
 
                 const j = recipes.length;
                 for(let i=0; i<j; i++){
-                    if(recipes[i].name.toLowerCase().includes(userInput) === true) {
+                    if(normalizeString(recipes[i].name).toLowerCase().includes(userInput) === true) {
                         recipesName.push(recipes[i]);
                     }
                 }
